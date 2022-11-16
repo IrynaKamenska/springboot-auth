@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/app-users")
 @RequiredArgsConstructor
 public class AppUserController {
 
@@ -35,6 +35,12 @@ public class AppUserController {
     public String getRole(){
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
 
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable String id) {
+// Todo: not yet implemented
     }
 
     @PostMapping

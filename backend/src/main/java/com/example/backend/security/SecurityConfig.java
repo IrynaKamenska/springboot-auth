@@ -30,15 +30,32 @@ public class SecurityConfig {
                 .csrf().disable()
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/me") .permitAll()
-                .antMatchers(HttpMethod.GET,
-                        "/api/login",
-                        "/api/logout",
-                        "/api/role").authenticated()
-                .antMatchers(HttpMethod.POST,
-                        "/api").hasRole("ADMIN")
+                .antMatchers(
+                        HttpMethod.POST,
+                        "/api/app-users"
+                ).permitAll()
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/api/app-users/me"
+                ).permitAll()
+                .antMatchers(
+                        "/api/app-users/login",
+                        "/api/app-users/logout","/api/app-users/role"
+                ).authenticated()
                 .anyRequest().denyAll()
                 .and().build();
+
+// .hasAnyRole("USER", "ADMIN")
+
+//                .antMatchers(HttpMethod.GET, "/api/me") .permitAll()
+//                .antMatchers(HttpMethod.GET,
+//                        "/api/login",
+//                        "/api/logout",
+//                        "/api/role").authenticated()
+//                .antMatchers(HttpMethod.POST,
+//                        "/api").hasRole("ADMIN")
+//                .anyRequest().denyAll()
+//                .and().build();
     }
 
 
@@ -56,6 +73,7 @@ public class SecurityConfig {
                         .username(username)
                         .password(userByName.passwordBcrypt())
                         .roles(userByName.role().toString())
+// ROLE_BASIC                       .roles("BASIC")
                         .build();
             }
             @Override
